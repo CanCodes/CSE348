@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - mysql
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: root
+      PMA_HOST: mysql
+    networks:
+      - cse348-network
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cse
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - cse348-network
+
+networks:
+  cse348-network:
+    driver: bridge
+
+volumes:
+  mysql:
