@@ -1,5 +1,16 @@
-version: '3.7'
+version: "3.7"
 services:
+  www:
+    build: .
+    depends_on:
+      - mysql
+    volumes:
+      - ./src:/var/www/html
+      - ./log:/var/log/apache2
+    ports:
+      - 8081:80
+    networks:
+      - cse348-network
   phpmyadmin:
     image: phpmyadmin
     depends_on:
